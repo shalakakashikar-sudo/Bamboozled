@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Quiz, QuizQuestion, UserAnswer } from '../types';
 import { Shoot, Mood } from './Mascot';
@@ -23,12 +24,10 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
   const quizAnchorRef = useRef<HTMLDivElement>(null);
 
   // --- Refined Scroll Logic ---
-  // Scrolls to the question area anchor specifically, avoiding the top of the entire app.
   useEffect(() => {
     if (stage === 'active' && quizAnchorRef.current) {
-      // Small timeout ensures the DOM content height is settled
       const timeout = setTimeout(() => {
-        const headerOffset = 180; // Accounting for App Header + Progress Bar
+        const headerOffset = 160; // Offset for app header + progress bar
         const elementPosition = quizAnchorRef.current?.getBoundingClientRect().top ?? 0;
         const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -57,7 +56,6 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
   const currentAnswerRecord = userAnswers[currentIdx];
   const isAnswered = !!currentAnswerRecord;
 
-  // Stats for the sidebar
   const correctCount = userAnswers.filter(a => a?.isCorrect).length;
   const incorrectCount = userAnswers.filter(a => a && !a.isCorrect).length;
 
@@ -85,7 +83,6 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
     }
   }, [isAnswered, selectedOption, currentQuestion, currentIdx, userAnswers]);
 
-  // Handle Enter Key
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Enter' && stage === 'active') {
@@ -126,14 +123,13 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
 
   if (stage === 'setup') {
     return (
-      <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-12 bg-white rounded-[4rem] shadow-2xl border-8 border-emerald-50 p-10 md:p-16 fade-in min-h-[600px]">
+      <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-12 bg-white rounded-[4rem] shadow-2xl border-8 border-emerald-50 p-10 md:p-16 fade-in min-h-[500px]">
         <div className="lg:w-1/2 flex justify-center">
           <Shoot size="lg" mood="happy" message={message} />
         </div>
         <div className="lg:w-1/2 text-center lg:text-left">
           <h2 className="text-4xl font-black text-emerald-950 mb-2 leading-tight">Quiz Setup</h2>
           <p className="text-emerald-700 font-medium mb-8">How many bamboo shoots will you tackle?</p>
-          
           <div className="grid grid-cols-3 gap-3 mb-8">
             {[5, 10, 20, 30, 40, 50].map(count => (
               <button
@@ -145,7 +141,6 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
               </button>
             ))}
           </div>
-
           <button 
             onClick={startQuiz}
             className="w-full py-5 bg-emerald-950 text-white rounded-3xl font-black uppercase tracking-widest hover:bg-emerald-800 transition-all shadow-xl text-lg hover:scale-[1.02] active:scale-95"
@@ -184,14 +179,12 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
                 <div className="text-xs font-black text-emerald-400 uppercase tracking-widest mt-1">Overall Rank</div>
               </div>
             </div>
-            
             <div className="flex flex-wrap gap-4 justify-center lg:justify-start mt-8">
               <button onClick={() => { setStage('setup'); setCurrentIdx(0); }} className="px-10 py-4 bg-emerald-600 text-white rounded-2xl font-black uppercase tracking-widest text-xs shadow-lg hover:bg-emerald-500 transition-all">New Quiz</button>
               <button onClick={onClose} className="px-10 py-4 bg-emerald-950 text-white rounded-2xl font-black uppercase tracking-widest text-xs shadow-lg hover:bg-emerald-800 transition-all">Home</button>
             </div>
           </div>
         </div>
-
         <h3 className="text-3xl font-black text-emerald-950 mb-8 px-4 border-l-8 border-emerald-500 ml-4">Scroll of Wisdom (Review)</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 px-4">
           {activeQuestions.map((q, i) => {
@@ -221,7 +214,6 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
 
   return (
     <div className="max-w-[1400px] mx-auto fade-in">
-      {/* Bamboo Progress Bar - Sticky with app header offset */}
       <div className="mb-8 w-full sticky top-[72px] z-20 glass-panel p-4 rounded-[2rem] border-2 border-white shadow-xl transition-all duration-300">
         <div className="flex justify-between items-center mb-2 px-3">
            <div className="flex items-center gap-3">
@@ -245,7 +237,6 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
       </div>
 
       <div className="flex flex-col lg:flex-row gap-8 items-start relative">
-        {/* LEFT COLUMN: Sidebar info (Sticky on desktop) */}
         <aside className="lg:w-[350px] flex flex-col gap-6 lg:sticky lg:top-[160px] w-full z-10">
           <div className="bg-white p-8 rounded-[3.5rem] shadow-2xl border-4 border-emerald-50 flex flex-col items-center">
             <Shoot size="md" mood={mood} message={message} />
@@ -266,11 +257,8 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
           </div>
         </aside>
 
-        {/* RIGHT COLUMN: Question & Options Area */}
         <div className="flex-1 w-full min-h-[500px] flex flex-col">
-          {/* Precise Anchor for Question Focus */}
           <div ref={quizAnchorRef} className="invisible h-0 w-0" />
-          
           <div className="bg-white p-8 md:p-14 rounded-[4.5rem] shadow-2xl border-4 border-emerald-50 flex flex-col h-full">
             <div className="mb-10">
               <div className="flex items-center gap-2 mb-4">
@@ -291,7 +279,6 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
               {currentQuestion.options.map((option, idx) => {
                 let stateClass = "bg-white border-emerald-100 text-emerald-900 hover:border-emerald-400 hover:bg-emerald-50/30";
-                
                 if (isAnswered) {
                   if (idx === currentQuestion.correctAnswer) {
                     stateClass = "bg-emerald-500 border-emerald-400 text-white shadow-2xl scale-[1.03] z-10";
@@ -320,7 +307,6 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
               })}
             </div>
 
-            {/* Explanation Area */}
             {isAnswered && (
               <div className="mb-10 p-8 bg-emerald-50/60 rounded-[3.5rem] border-2 border-emerald-100 animate-in fade-in slide-in-from-bottom-4 duration-500 shadow-inner">
                 <div className="flex items-center gap-5 mb-4">
@@ -342,7 +328,6 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
               </div>
             )}
 
-            {/* Navigation Controls */}
             <div className="mt-auto pt-8 border-t-4 border-emerald-50 flex flex-col sm:flex-row gap-4 items-center">
                <div className="flex gap-4 w-full">
                  <button
@@ -352,7 +337,6 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
                  >
                    Back
                  </button>
-                 
                  {!isAnswered ? (
                    <button
                      onClick={handleSubmit}
