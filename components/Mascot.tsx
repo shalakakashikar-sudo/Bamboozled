@@ -55,12 +55,18 @@ const TICKLE_REACTIONS: Thought[] = [
   { text: "Hey! I'm trying to teach grammar here!", mood: 'surprised' },
   { text: "Hahaha! Stop! I am not an Object! I am a Subject!", mood: 'laughing' },
   { text: "Whoa! Unprovoked action! Subject: YOU.", mood: 'surprised' },
-  { text: "Aww, you care! I am loved by the user!", mood: 'shy' },
+  { text: "Aww! You're sweeter than a fresh bamboo shoot!", mood: 'shy' },
   { text: "Giggle! Tickles are the best!", mood: 'giggling' },
   { text: "Stoooop! I'll drop my bamboo!", mood: 'tongue' },
   { text: "Tehehe! You're so funny!", mood: 'giggling' },
   { text: "ROFL! Stop it, stop it!", mood: 'laughing' },
   { text: "Oh stop... I'm blushing!", mood: 'shy' },
+  { text: "You are the Subject of my smiles!", mood: 'shy'}
+  { text: "My heart was stolen... by you!", mood: 'shy'}
+  { text: "Let the tickling be stopped... by you!", mood: 'determined'}
+  { text: "I am being tickled! That is Present Continuous Passive!", mood: 'tickled'}
+  { text: "If I drop this bamboo, it will be missed... by my tummy.", mood: 'thinking'}
+  { text: "Aww, I am being given attention!", mood: 'love'}
 ];
 
 // --- Component ---
