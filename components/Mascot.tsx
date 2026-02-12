@@ -53,7 +53,7 @@ const MOMO_THOUGHTS: Thought[] = [
 const TICKLE_REACTIONS: Thought[] = [
   { text: "Eep! That tickles! The button was clicked BY you!", mood: 'tickled' },
   { text: "Hey! I'm trying to teach grammar here!", mood: 'surprised' },
-  { text: "Hahaha! Stop! My passive voice is breaking!", mood: 'laughing' },
+  { text: "Hahaha! Stop! I am not an Object! I am a Subject!", mood: 'laughing' },
   { text: "Whoa! Unprovoked action! Subject: YOU.", mood: 'surprised' },
   { text: "Aww, you care! I am loved by the user!", mood: 'shy' },
   { text: "Giggle! Tickles are the best!", mood: 'giggling' },
