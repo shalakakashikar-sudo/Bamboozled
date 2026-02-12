@@ -1,4 +1,3 @@
-
 import { Chapter } from '../../types';
 
 export const chapter12: Chapter = {
@@ -45,7 +44,7 @@ export const chapter12: Chapter = {
 
     { 
       type: 'tip', 
-      title: "Shoot's Graduation Message", 
+      title: "MoMo's Graduation Message", 
       content: "You've done it! You're no longer Bamboozled. Your grammar is now as tall and strong as a giant bamboo forest. Keep practicing, and you'll master Active-Passive Voice for life! 🎋🐼🎓" 
     },
     

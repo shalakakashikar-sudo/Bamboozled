@@ -1,4 +1,3 @@
-
 import { Chapter } from '../../types';
 
 export const chapter6: Chapter = {
@@ -51,7 +50,7 @@ export const chapter6: Chapter = {
 
     { 
       type: 'tip', 
-      title: "Shoot's Usage Guide", 
+      title: "MoMo's Usage Guide", 
       content: "Structure 1 (It is said...) is common in news reporting and academic writing to maintain total distance. Structure 2 (He is said...) is more concise and puts the person being talked about as the subject." 
     },
 
@@ -87,7 +86,7 @@ export const chapter6: Chapter = {
     { type: 'text', content: "Used with verbs like: See, Hear, Watch, Feel, Notice." },
     { type: 'formula', title: "Perception Passive Formula", content: "Active: Subject + see/hear/watch + Object + V1\nPassive: Object + was seen/heard/watched + to + V1" },
     
-    { type: 'tip', title: "Shoot's Invisible 'To'", content: "⚠️ CRITICAL RULE: Even though 'to' is missing in the active form (e.g., 'I saw him open...'), you MUST add it in the passive form ('He was seen to open...')." },
+    { type: 'tip', title: "MoMo's Invisible 'To'", content: "⚠️ CRITICAL RULE: Even though 'to' is missing in the active form (e.g., 'I saw him open...'), you MUST add it in the passive form ('He was seen to open...')." },
     
     { type: 'example', title: "SEE (1)", active: "I saw him open the box.", passive: "He was seen to open the box." },
     { type: 'example', title: "SEE (2)", active: "They saw her enter the building.", passive: "She was seen to enter the building." },

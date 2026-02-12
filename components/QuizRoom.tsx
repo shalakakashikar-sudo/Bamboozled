@@ -1,7 +1,6 @@
-
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Quiz, QuizQuestion, UserAnswer } from '../types';
-import { Shoot, Mood } from './Mascot';
+import { MoMo, Mood } from './Mascot';
 
 interface QuizRoomProps {
   quiz: Quiz;
@@ -16,7 +15,7 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
   const [activeQuestions, setActiveQuestions] = useState<QuizQuestion[]>([]);
   const [currentIdx, setCurrentIdx] = useState(0);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
-  const [userAnswers, setUserAnswers] = useState<(UserAnswer | null)[]>([]);
+  const [userAnswers, setTwoAnswers] = useState<(UserAnswer | null)[]>([]);
   
   const [mood, setMood] = useState<Mood>('happy');
   const [message, setMessage] = useState<string>(`Ready for the ${quiz.title}? Choose your challenge!`);
@@ -24,7 +23,6 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
   const quizAnchorRef = useRef<HTMLDivElement>(null);
 
   // --- Refined Scroll Logic ---
-  // Targets the specific question area anchor instead of the page top.
   useEffect(() => {
     if (stage === 'active' && quizAnchorRef.current) {
       const timeout = setTimeout(() => {
@@ -46,7 +44,7 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
     const shuffled = [...quiz.questions].sort(() => 0.5 - Math.random());
     const selected = shuffled.slice(0, targetCount);
     setActiveQuestions(selected);
-    setUserAnswers(new Array(selected.length).fill(null));
+    setTwoAnswers(new Array(selected.length).fill(null));
     setCurrentIdx(0);
     setStage('active');
     setMood('determined');
@@ -73,7 +71,7 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
 
     const updatedAnswers = [...userAnswers];
     updatedAnswers[currentIdx] = newAnswer;
-    setUserAnswers(updatedAnswers);
+    setTwoAnswers(updatedAnswers);
 
     if (isCorrect) {
       setMood('laughing');
@@ -127,7 +125,7 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
     return (
       <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-12 bg-white rounded-[4rem] shadow-2xl border-8 border-emerald-50 p-10 md:p-16 fade-in min-h-[500px]">
         <div className="lg:w-1/2 flex justify-center">
-          <Shoot size="lg" mood="happy" message={message} />
+          <MoMo size="lg" mood="happy" message={message} />
         </div>
         <div className="lg:w-1/2 text-center lg:text-left">
           <h2 className="text-4xl font-black text-emerald-950 mb-2 leading-tight">Quiz Setup</h2>
@@ -166,7 +164,7 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
       <div className="max-w-[1400px] mx-auto fade-in pb-20">
         <div className="bg-white rounded-[4rem] shadow-2xl border-8 border-emerald-50 p-10 flex flex-col lg:flex-row items-center gap-10 mb-10">
           <div className="lg:w-1/3 flex justify-center">
-            <Shoot size="md" mood={mood} message={message} />
+            <MoMo size="md" mood={mood} message={message} />
           </div>
           <div className="lg:w-2/3 text-center lg:text-left">
             <h2 className="text-5xl font-black text-emerald-950 mb-2">Quiz Complete!</h2>
@@ -243,7 +241,7 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
         {/* LEFT COLUMN: Sidebar info (Sticky on desktop) */}
         <aside className="lg:w-[350px] flex flex-col gap-6 lg:sticky lg:top-[160px] w-full z-10">
           <div className="bg-white p-8 rounded-[3.5rem] shadow-2xl border-4 border-emerald-50 flex flex-col items-center">
-            <Shoot size="md" mood={mood} message={message} />
+            <MoMo size="md" mood={mood} message={message} />
             <div className="w-full mt-8 pt-8 border-t-4 border-emerald-50 grid grid-cols-2 gap-4">
               <div className="bg-emerald-50 p-4 rounded-3xl text-center shadow-inner border border-emerald-100">
                 <p className="text-[10px] font-black text-emerald-400 uppercase tracking-widest mb-1">Correct</p>
@@ -323,7 +321,7 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
                   </div>
                   <div>
                     <h4 className="text-[11px] font-black text-emerald-800 uppercase tracking-[0.2em]">
-                      {currentAnswerRecord?.isCorrect ? 'SHOOT IS PROUD!' : 'QUICK LESSON:'}
+                      {currentAnswerRecord?.isCorrect ? 'MOMO IS PROUD!' : 'QUICK LESSON:'}
                     </h4>
                     <p className="text-emerald-950 font-black text-lg">Panda Insights</p>
                   </div>

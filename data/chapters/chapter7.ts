@@ -1,4 +1,3 @@
-
 import { Chapter } from '../../types';
 
 export const chapter7: Chapter = {
@@ -109,6 +108,6 @@ export const chapter7: Chapter = {
         "If NO → Cannot be passive: 'Sleep WHAT?' → (None - INTRANSITIVE). 'Happen WHAT?' → (None - INTRANSITIVE)."
       ]
     },
-    { type: 'tip', title: "Shoot's Summary", content: "Always look for the receiver of the action. No receiver (Object) = No Passive. Simple as eating a bamboo shoot! 🎋" }
+    { type: 'tip', title: "MoMo's Summary", content: "Always look for the receiver of the action. No receiver (Object) = No Passive. Simple as eating a bamboo shoot! 🎋" }
   ]
 };

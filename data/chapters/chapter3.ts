@@ -1,4 +1,3 @@
-
 import { Chapter } from '../../types';
 
 export const chapter3: Chapter = {

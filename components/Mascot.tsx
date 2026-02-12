@@ -22,7 +22,7 @@ interface Thought {
 }
 
 // --- Heavily Expanded Dialogue Data ---
-const SHOOT_THOUGHTS: Thought[] = [
+const MOMO_THOUGHTS: Thought[] = [
   { text: "Did you know? Even pandas prefer Active Voice! It's much faster.", mood: 'happy' },
   { text: "Active: 'I eat bamboo.' Passive: 'Bamboo is eaten by me.' I prefer the eating part!", mood: 'determined' },
   { text: "Don't let the V3 forms chew you up. They are your friends!", mood: 'wink' },
@@ -64,7 +64,7 @@ const TICKLE_REACTIONS: Thought[] = [
 ];
 
 // --- Component ---
-export const Shoot: React.FC<{ 
+export const MoMo: React.FC<{ 
   size?: 'sm' | 'md' | 'lg', 
   message?: string, 
   mood?: Mood,
@@ -78,7 +78,7 @@ export const Shoot: React.FC<{
   hideBubble = false
 }) => {
   const [internalMood, setInternalMood] = useState<Mood>('happy');
-  const [internalMessage, setInternalMessage] = useState<string>(SHOOT_THOUGHTS[Math.floor(Math.random() * SHOOT_THOUGHTS.length)].text);
+  const [internalMessage, setInternalMessage] = useState<string>(MOMO_THOUGHTS[Math.floor(Math.random() * MOMO_THOUGHTS.length)].text);
   const [isWiggling, setIsWiggling] = useState(false);
   const [isReactionLocked, setIsReactionLocked] = useState(false);
   const resetTimeoutRef = useRef<number | null>(null);
@@ -87,7 +87,7 @@ export const Shoot: React.FC<{
   useEffect(() => {
     if (showRandomThoughts && !message && !isReactionLocked) {
       const interval = setInterval(() => {
-        const random = SHOOT_THOUGHTS[Math.floor(Math.random() * SHOOT_THOUGHTS.length)];
+        const random = MOMO_THOUGHTS[Math.floor(Math.random() * MOMO_THOUGHTS.length)];
         setInternalMood(random.mood);
         setInternalMessage(random.text);
       }, 5000);
@@ -118,7 +118,7 @@ export const Shoot: React.FC<{
     
     resetTimeoutRef.current = window.setTimeout(() => {
       setIsReactionLocked(false);
-      const random = SHOOT_THOUGHTS[Math.floor(Math.random() * SHOOT_THOUGHTS.length)];
+      const random = MOMO_THOUGHTS[Math.floor(Math.random() * MOMO_THOUGHTS.length)];
       setInternalMood(random.mood);
       if (!message) setInternalMessage(random.text);
       resetTimeoutRef.current = null;

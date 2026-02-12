@@ -1,4 +1,3 @@
-
 import { Chapter } from '../../types';
 
 export const chapter5: Chapter = {
@@ -65,7 +64,7 @@ export const chapter5: Chapter = {
     { type: 'example', active: "Who wrote this book?", passive: "By whom was this book written?" },
     { type: 'example', active: "Who discovered America?", passive: "By whom was America discovered?" },
     
-    { type: 'tip', title: "Shoot's Modern Alternative", content: "In modern natural English, we often keep 'Who' at the start and put 'by' at the end!" },
+    { type: 'tip', title: "MoMo's Modern Alternative", content: "In modern natural English, we often keep 'Who' at the start and put 'by' at the end!" },
     { type: 'list', title: "Natural Phrasing Examples", items: [
       "Who are you taught by?",
       "Who was this book written by?"
@@ -85,7 +84,7 @@ export const chapter5: Chapter = {
     { type: 'example', title: "BUY", active: "She bought me a gift.", passive: "1. A gift was bought for me by her.\n2. I was bought a gift by her." },
 
     { type: 'heading', title: "5.4 VERBS FOLLOWED BY PREPOSITIONS (Phrasal Verbs)" },
-    { type: 'tip', title: "Shoot's Sticky Rule", content: "⚠️ CRITICAL RULE: Keep the preposition with the verb! Do not separate them in passive voice." },
+    { type: 'tip', title: "MoMo's Sticky Rule", content: "⚠️ CRITICAL RULE: Keep the preposition with the verb! Do not separate them in passive voice." },
     
     { type: 'example', title: "LAUGH AT", active: "They laughed at him.", passive: "He was laughed at by them." },
     { type: 'example', title: "LOOK INTO", active: "The police are looking into the matter.", passive: "The matter is being looked into by the police." },

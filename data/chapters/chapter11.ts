@@ -1,4 +1,3 @@
-
 import { Chapter } from '../../types';
 
 export const chapter11: Chapter = {
@@ -66,7 +65,7 @@ export const chapter11: Chapter = {
 
     { 
       type: 'tip', 
-      title: "Shoot's Master Sheet", 
+      title: "MoMo's Master Sheet", 
       content: "Keep this chapter bookmarked! It's the ultimate 'Panda Shield' against grammar mistakes during your exams. 🎋🐼🛡️" 
     }
   ]

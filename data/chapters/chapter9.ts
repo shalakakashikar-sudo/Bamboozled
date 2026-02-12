@@ -1,4 +1,3 @@
-
 import { Chapter } from '../../types';
 
 export const chapter9: Chapter = {
@@ -57,6 +56,6 @@ export const chapter9: Chapter = {
     { type: 'mistake', title: "See Error", active: "He was seen to open the box.", passive: "✗ He was seen open the box." },
     { type: 'mistake', title: "Hear Error", active: "She was heard to sing.", passive: "✗ She was heard sing." },
 
-    { type: 'tip', title: "Shoot's Safety Audit", content: "Before you submit your work, check for these 8 common traps! Mastery is as much about avoiding errors as it is about knowing the rules. 🎋🐼" }
+    { type: 'tip', title: "MoMo's Safety Audit", content: "Before you submit your work, check for these 8 common traps! Mastery is as much about avoiding errors as it is about knowing the rules. 🎋🐼" }
   ]
 };

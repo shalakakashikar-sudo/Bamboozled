@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { chapters } from './data/studyData';
 import { quizzes } from './data/quizData';
-import { Shoot } from './components/Mascot';
+import { MoMo } from './components/Mascot';
 import { ChapterCard } from './components/ChapterCard';
 import { QuizRoom } from './components/QuizRoom';
 import { Chapter, ContentPart } from './types';
@@ -180,10 +180,10 @@ const App: React.FC = () => {
         return (
           <div key={index} className="mb-10 bg-gradient-to-r from-amber-50 to-orange-50 border-4 border-amber-200 p-8 rounded-[4rem] flex flex-col md:flex-row items-center gap-8 shadow-2xl shadow-amber-100/50">
              <div className="flex-shrink-0 bg-white p-4 rounded-full shadow-lg border-2 border-amber-100">
-               <Shoot size="sm" hideBubble={true} />
+               <MoMo size="sm" hideBubble={true} />
              </div>
              <div className="flex-1 text-center md:text-left">
-               <h4 className="text-amber-900 font-black text-3xl mb-2">{part.title || "Shoot's Pro Tip"}</h4>
+               <h4 className="text-amber-900 font-black text-3xl mb-2">{part.title || "MoMo's Pro Tip"}</h4>
                <p className="text-amber-800 leading-relaxed font-bold text-xl">{part.content}</p>
              </div>
           </div>
@@ -219,7 +219,7 @@ const App: React.FC = () => {
       {/* Header */}
       <header className="px-4 py-2 md:px-10 md:py-4 flex items-center justify-between glass-panel sticky top-0 z-50 border-b border-emerald-100 shadow-sm backdrop-blur-xl">
         <div className="flex items-center gap-4 cursor-pointer" onClick={handleBack}>
-          <Shoot size="sm" hideBubble={true} />
+          <MoMo size="sm" hideBubble={true} />
           <div className="flex flex-col">
             <h1 className="text-2xl md:text-4xl font-black text-emerald-950 flex items-center gap-3 leading-none tracking-tight">
                Bamboozled
@@ -258,7 +258,7 @@ const App: React.FC = () => {
             <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-20 mb-16 bg-white/70 p-10 md:p-16 rounded-[4.5rem] border-8 border-white shadow-2xl relative overflow-hidden group">
               <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-100/50 rounded-full -mr-32 -mt-32 opacity-40 blur-3xl group-hover:bg-emerald-200 transition-colors duration-1000"></div>
               <div className="flex-shrink-0 scale-110 lg:scale-125">
-                <Shoot 
+                <MoMo 
                   size="lg" 
                   showRandomThoughts={true}
                 />
@@ -309,7 +309,7 @@ const App: React.FC = () => {
                 </div>
                 <div className="flex flex-col items-center gap-4">
                   <div className="hidden lg:block transform scale-110 origin-bottom">
-                     <Shoot size="sm" hideBubble={true} />
+                     <MoMo size="sm" hideBubble={true} />
                   </div>
                   <button 
                     onClick={startChapterQuiz}

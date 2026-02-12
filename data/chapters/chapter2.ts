@@ -1,4 +1,3 @@
-
 import { Chapter } from '../../types';
 
 export const chapter2: Chapter = {
@@ -20,7 +19,7 @@ export const chapter2: Chapter = {
     },
     {
       type: 'tip',
-      title: "Shoot's Golden Rule",
+      title: "MoMo's Golden Rule",
       content: "⚠️ CRITICAL RULE: Passive voice ALWAYS uses V3 (Past Participle), never V2!"
     },
 

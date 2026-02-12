@@ -1,4 +1,3 @@
-
 import { Chapter } from '../../types';
 
 export const chapter8: Chapter = {
@@ -189,6 +188,6 @@ export const chapter8: Chapter = {
       content: "✓ Good: I managed a team of 10 people. I increased sales by 25%. I developed a new marketing strategy." 
     },
 
-    { type: 'tip', title: "Shoot's Final Selection Guide", content: "Remember: Context is everything! If the doer is the hero, use Active. If the result is the hero (or the doer is a mystery), go Passive! 🎋" }
+    { type: 'tip', title: "MoMo's Final Selection Guide", content: "Remember: Context is everything! If the doer is the hero, use Active. If the result is the hero (or the doer is a mystery), go Passive! 🎋" }
   ]
 };
