@@ -24,10 +24,11 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
   const quizAnchorRef = useRef<HTMLDivElement>(null);
 
   // --- Refined Scroll Logic ---
+  // Targets the specific question area anchor instead of the page top.
   useEffect(() => {
     if (stage === 'active' && quizAnchorRef.current) {
       const timeout = setTimeout(() => {
-        const headerOffset = 160; // Offset for app header + progress bar
+        const headerOffset = 180; // Offset for app header + progress bar
         const elementPosition = quizAnchorRef.current?.getBoundingClientRect().top ?? 0;
         const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -83,6 +84,7 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
     }
   }, [isAnswered, selectedOption, currentQuestion, currentIdx, userAnswers]);
 
+  // Handle Enter Key
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Enter' && stage === 'active') {
@@ -214,6 +216,7 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
 
   return (
     <div className="max-w-[1400px] mx-auto fade-in">
+      {/* Bamboo Progress Bar - Sticky with app header offset */}
       <div className="mb-8 w-full sticky top-[72px] z-20 glass-panel p-4 rounded-[2rem] border-2 border-white shadow-xl transition-all duration-300">
         <div className="flex justify-between items-center mb-2 px-3">
            <div className="flex items-center gap-3">
@@ -237,6 +240,7 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
       </div>
 
       <div className="flex flex-col lg:flex-row gap-8 items-start relative">
+        {/* LEFT COLUMN: Sidebar info (Sticky on desktop) */}
         <aside className="lg:w-[350px] flex flex-col gap-6 lg:sticky lg:top-[160px] w-full z-10">
           <div className="bg-white p-8 rounded-[3.5rem] shadow-2xl border-4 border-emerald-50 flex flex-col items-center">
             <Shoot size="md" mood={mood} message={message} />
@@ -257,8 +261,11 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
           </div>
         </aside>
 
+        {/* RIGHT COLUMN: Question & Options Area */}
         <div className="flex-1 w-full min-h-[500px] flex flex-col">
+          {/* Anchor point for precise scrolling */}
           <div ref={quizAnchorRef} className="invisible h-0 w-0" />
+          
           <div className="bg-white p-8 md:p-14 rounded-[4.5rem] shadow-2xl border-4 border-emerald-50 flex flex-col h-full">
             <div className="mb-10">
               <div className="flex items-center gap-2 mb-4">
@@ -307,6 +314,7 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
               })}
             </div>
 
+            {/* Explanation Area */}
             {isAnswered && (
               <div className="mb-10 p-8 bg-emerald-50/60 rounded-[3.5rem] border-2 border-emerald-100 animate-in fade-in slide-in-from-bottom-4 duration-500 shadow-inner">
                 <div className="flex items-center gap-5 mb-4">
