@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Quiz, QuizQuestion, UserAnswer } from '../types';
 import { MoMo, Mood } from './Mascot';
 import { quizzes } from '../data/quizData';
+import { grandQuiz } from '../data/quizzes/grandQuiz';
 
 interface QuizRoomProps {
   quiz: Quiz;
@@ -42,26 +42,25 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
 
   // --- Setup Logic ---
   const startQuiz = () => {
-    // 1. Determine the source pool
     let pool: QuizQuestion[] = [];
     
     if (quiz.id === 'grand_quiz') {
-      // For the Grand Quiz, aggregate EVERYTHING from the entire database
-      pool = Object.values(quizzes).flatMap(q => q.questions);
+      // Use the massive pool from grandQuiz specifically
+      pool = [...grandQuiz.questions];
     } else {
-      // For chapter-specific quizzes, stick to that chapter's bank
       pool = [...quiz.questions];
     }
 
-    // 2. Fisher-Yates Shuffle for true randomness
+    // Logic Requirement 1: Questions are randomly selected (Fisher-Yates Shuffle)
     const shuffled = [...pool];
     for (let i = shuffled.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
 
-    // 3. Select the requested number of questions
-    const selected = shuffled.slice(0, targetCount);
+    // Ensure we don't request more than available
+    const finalCount = Math.min(targetCount, shuffled.length);
+    const selected = shuffled.slice(0, finalCount);
     
     setActiveQuestions(selected);
     setUserAnswers(new Array(selected.length).fill(null));
@@ -102,7 +101,7 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
     }
   }, [isAnswered, selectedOption, currentQuestion, currentIdx, userAnswers]);
 
-  // Handle Enter Key
+  // Handle Keydown
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Enter' && stage === 'active') {
@@ -149,9 +148,9 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
         </div>
         <div className="lg:w-1/2 text-center lg:text-left">
           <h2 className="text-4xl font-black text-emerald-950 mb-2 leading-tight">Quiz Setup</h2>
-          <p className="text-emerald-700 font-medium mb-8">How many bamboo shoots will you tackle?</p>
+          <p className="text-emerald-700 font-medium mb-8">Choose the size of your massive challenge:</p>
           <div className="grid grid-cols-3 gap-3 mb-8">
-            {[5, 10, 20, 30, 40, 50].map(count => (
+            {[10, 50, 100, 200, 300, 400].map(count => (
               <button
                 key={count}
                 onClick={() => setTargetCount(count)}
@@ -165,7 +164,7 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
             onClick={startQuiz}
             className="w-full py-5 bg-emerald-950 text-white rounded-3xl font-black uppercase tracking-widest hover:bg-emerald-800 transition-all shadow-xl text-lg hover:scale-[1.02] active:scale-95"
           >
-            Start Quiz
+            Start Massive Quiz
           </button>
           <button 
             onClick={onClose}
@@ -187,7 +186,7 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
             <MoMo size="md" mood={mood} message={message} />
           </div>
           <div className="lg:w-2/3 text-center lg:text-left">
-            <h2 className="text-5xl font-black text-emerald-950 mb-2">Quiz Complete!</h2>
+            <h2 className="text-5xl font-black text-emerald-950 mb-2">Grand Quiz Results</h2>
             <div className="flex items-center justify-center lg:justify-start gap-8 my-6">
               <div>
                 <div className="text-7xl font-black text-emerald-600">{score} / {activeQuestions.length}</div>
@@ -196,16 +195,16 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
               <div className="w-1.5 h-16 bg-emerald-100 rounded-full"></div>
               <div>
                 <div className="text-7xl font-black text-emerald-950">{Math.round((score / activeQuestions.length) * 100)}%</div>
-                <div className="text-xs font-black text-emerald-400 uppercase tracking-widest mt-1">Overall Rank</div>
+                <div className="text-xs font-black text-emerald-400 uppercase tracking-widest mt-1">Mastery Rank</div>
               </div>
             </div>
             <div className="flex flex-wrap gap-4 justify-center lg:justify-start mt-8">
-              <button onClick={() => { setStage('setup'); setCurrentIdx(0); }} className="px-10 py-4 bg-emerald-600 text-white rounded-2xl font-black uppercase tracking-widest text-xs shadow-lg hover:bg-emerald-500 transition-all">New Quiz</button>
-              <button onClick={onClose} className="px-10 py-4 bg-emerald-950 text-white rounded-2xl font-black uppercase tracking-widest text-xs shadow-lg hover:bg-emerald-800 transition-all">Home</button>
+              <button onClick={() => { setStage('setup'); setCurrentIdx(0); }} className="px-10 py-4 bg-emerald-600 text-white rounded-2xl font-black uppercase tracking-widest text-xs shadow-lg hover:bg-emerald-500 transition-all">Retry Bank</button>
+              <button onClick={onClose} className="px-10 py-4 bg-emerald-950 text-white rounded-2xl font-black uppercase tracking-widest text-xs shadow-lg hover:bg-emerald-800 transition-all">Back to Grove</button>
             </div>
           </div>
         </div>
-        <h3 className="text-3xl font-black text-emerald-950 mb-8 px-4 border-l-8 border-emerald-500 ml-4">Scroll of Wisdom (Review)</h3>
+        <h3 className="text-3xl font-black text-emerald-950 mb-8 px-4 border-l-8 border-emerald-500 ml-4">Advanced Knowledge Review</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 px-4">
           {activeQuestions.map((q, i) => {
             const ans = userAnswers[i];
@@ -219,7 +218,7 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
                 </div>
                 <h4 className="text-lg font-black text-emerald-950 mb-6 flex-grow leading-tight">{q.question}</h4>
                 <div className="bg-emerald-50/30 p-5 rounded-2xl border-2 border-dashed border-emerald-100 text-[12px] leading-relaxed italic text-emerald-800">
-                  <p className="not-italic font-black text-[10px] text-emerald-400 uppercase mb-2">Panda Logic:</p>
+                  <p className="not-italic font-black text-[10px] text-emerald-400 uppercase mb-2">Grammar Insight:</p>
                   {q.explanation}
                 </div>
               </div>
@@ -238,7 +237,7 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
         <div className="flex justify-between items-center mb-2 px-3">
            <div className="flex items-center gap-3">
              <div className="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-ping"></div>
-             <span className="text-[11px] font-black text-emerald-950 uppercase tracking-[0.2em]">Growth Segment {currentIdx + 1} / {activeQuestions.length}</span>
+             <span className="text-[11px] font-black text-emerald-950 uppercase tracking-[0.2em]">Master Pool Segment {currentIdx + 1} / {activeQuestions.length}</span>
            </div>
            <div className="bg-emerald-100 px-3 py-1 rounded-full">
             <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">{Math.round(progressPercent)}% COMPLETE</span>
@@ -262,17 +261,17 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
             <MoMo size="md" mood={mood} message={message} />
             <div className="w-full mt-8 pt-8 border-t-4 border-emerald-50 grid grid-cols-2 gap-4">
               <div className="bg-emerald-50 p-4 rounded-3xl text-center shadow-inner border border-emerald-100">
-                <p className="text-[10px] font-black text-emerald-400 uppercase tracking-widest mb-1">Correct</p>
+                <p className="text-[10px] font-black text-emerald-400 uppercase tracking-widest mb-1">Pass</p>
                 <p className="text-3xl font-black text-emerald-600">{correctCount}</p>
               </div>
               <div className="bg-fuchsia-50 p-4 rounded-3xl text-center shadow-inner border border-fuchsia-100">
-                <p className="text-[10px] font-black text-fuchsia-400 uppercase tracking-widest mb-1">Missed</p>
+                <p className="text-[10px] font-black text-fuchsia-400 uppercase tracking-widest mb-1">Fail</p>
                 <p className="text-3xl font-black text-fuchsia-600">{incorrectCount}</p>
               </div>
             </div>
             <div className="mt-6 flex items-center gap-2 px-4 py-2 bg-gray-50 rounded-full">
               <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
-              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em]">Enter to confirm</p>
+              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em]">Press Enter to Confirm</p>
             </div>
           </div>
         </aside>
@@ -283,7 +282,7 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
           <div className="bg-white p-8 md:p-14 rounded-[4.5rem] shadow-2xl border-4 border-emerald-50 flex flex-col h-full">
             <div className="mb-10">
               <div className="flex items-center gap-2 mb-4">
-                <span className="text-[11px] font-black text-emerald-300 uppercase tracking-[0.3em]">CHALLENGE MODULE</span>
+                <span className="text-[11px] font-black text-emerald-300 uppercase tracking-[0.3em]">ADVANCED CHALLENGE</span>
                 <div className="flex-1 h-0.5 bg-emerald-50 rounded-full"></div>
               </div>
               <h3 className="text-2xl md:text-4xl font-black text-emerald-950 leading-[1.15] tracking-tight">
@@ -298,6 +297,7 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
+              {/* Logic Requirement 2: Sequence of options remains same as code (direct mapping) */}
               {currentQuestion.options.map((option, idx) => {
                 let stateClass = "bg-white border-emerald-100 text-emerald-900 hover:border-emerald-400 hover:bg-emerald-50/30";
                 if (isAnswered) {
@@ -336,9 +336,9 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
                   </div>
                   <div>
                     <h4 className="text-[11px] font-black text-emerald-800 uppercase tracking-[0.2em]">
-                      {currentAnswerRecord?.isCorrect ? 'MOMO IS PROUD!' : 'QUICK LESSON:'}
+                      {currentAnswerRecord?.isCorrect ? 'EXCELLENT!' : 'GRAMMAR TRAP FOUND:'}
                     </h4>
-                    <p className="text-emerald-950 font-black text-lg">Panda Insights</p>
+                    <p className="text-emerald-950 font-black text-lg">Master's Insight</p>
                   </div>
                 </div>
                 <div className="border-l-4 border-emerald-200 pl-6 py-2">
@@ -356,7 +356,7 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
                    disabled={currentIdx === 0}
                    className="px-8 py-5 rounded-3xl font-black uppercase tracking-widest text-[11px] transition-all border-4 bg-white border-emerald-100 text-emerald-900 hover:bg-emerald-50 disabled:opacity-20 shadow-sm"
                  >
-                   Back
+                   Prev
                  </button>
                  {!isAnswered ? (
                    <button
@@ -382,3 +382,5 @@ export const QuizRoom: React.FC<QuizRoomProps> = ({ quiz, onClose }) => {
     </div>
   );
 };
+
+import { useState, useEffect, useCallback, useRef } from 'react';
